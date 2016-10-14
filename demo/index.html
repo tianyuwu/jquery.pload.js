@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- styles, scripts, etc -->
+    <style type="text/css">
+        .loading{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>pload--pushstate+load实现无刷新分页</h1>
+<div class="loading">加载中...</div>
+<div class="container" id="pload-container">
+    <p>这是第{{p}}页</p>
+    Go to <a href="/?p={{p+1}}">next page</a>.
+    <span style="cursor: pointer">跳到第三页</span>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script src="/static/jquery.pload.js"></script>
+
+<script>
+    $('a').pload({
+        container:'#pload-container',
+        start:function(){
+            $(".loading").show();
+        },
+        onSuccess:function(){
+            $(".loading").hide();
+        }
+    });
+
+    $('span').pload({container:'#pload-container', url:'/?p=3'})
+</script>
+
+</body>
+</html>
